@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="card_banner">
+        <attr name="main_title_text_color" format="color" />
+        <attr name="subtitle_title_text_color" format="color" />
+        <attr name="main_title_text_size" format="dimension" />
+        <attr name="subtitle_title_text_size" format="dimension" />
+        <attr name="border_width" format="dimension" />
+        <attr name="radius" format="dimension" />
+        <attr name="divider_width" format="dimension" />
+    </declare-styleable>
+</resources>
