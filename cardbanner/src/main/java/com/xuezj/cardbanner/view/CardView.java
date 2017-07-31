@@ -7,12 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.xuezj.cardbanner.R;
-import com.xuezj.cardbanner.mode.ItemViewMode;
+import com.xuezj.cardbanner.mode.BaseTransformer;
 
 
 /**
@@ -24,7 +23,7 @@ public class CardView extends RecyclerView implements View.OnClickListener {
     private static final int DEFAULT_SELECTION = Integer.MAX_VALUE >> 2;
     private int itemCount;
     private boolean mIsForceCentering;
-    private ItemViewMode mViewMode;
+    private BaseTransformer mViewMode;
     //    private boolean mNeedCenterForce;
     private boolean mNeedLoop = true;
     private OnCenterItemClickListener mCenterItemClickListener;
@@ -224,7 +223,7 @@ public class CardView extends RecyclerView implements View.OnClickListener {
         this.dataCount = dataCount;
     }
 
-    public void setViewMode(ItemViewMode mode) {
+    public void setViewMode(BaseTransformer mode) {
         mViewMode = mode;
     }
 

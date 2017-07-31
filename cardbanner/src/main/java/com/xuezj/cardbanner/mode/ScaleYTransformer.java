@@ -2,17 +2,16 @@ package com.xuezj.cardbanner.mode;
 
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 /**
  * Created by xuezj on 2017/7/29.
  */
 
-public class ScaleXViewMode implements ItemViewMode {
+public class ScaleYTransformer implements BaseTransformer {
 
     private float mScaleRatio = 0.001f;
 
-    public ScaleXViewMode(){}
+    public ScaleYTransformer(){}
 
 
     @Override

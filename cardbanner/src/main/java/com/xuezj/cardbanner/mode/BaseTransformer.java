@@ -6,6 +6,6 @@ import android.view.View;
  * Created by xuezj on 2017/7/29.
  */
 
-public interface ItemViewMode {
+public interface BaseTransformer {
     void applyToView(View v, RecyclerView parent);
 }

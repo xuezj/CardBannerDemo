@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //如果想使用自定义样式
-        //则设置.setItemViewMode(new DemoViewMode())
+        //则设置.setTransformer(new DemoTransformer())
 
         cardBanner2 .start();
         cardBanner2.setOnItemClickListener(new CardBanner.OnItemClickListener() {

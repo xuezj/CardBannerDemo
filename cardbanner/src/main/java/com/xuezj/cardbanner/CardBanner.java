@@ -13,12 +13,11 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.xuezj.cardbanner.adapter.BannerAdapter;
 import com.xuezj.cardbanner.adapter.CardAdapter;
-import com.xuezj.cardbanner.mode.ItemViewMode;
-import com.xuezj.cardbanner.mode.ScaleXViewMode;
+import com.xuezj.cardbanner.mode.BaseTransformer;
+import com.xuezj.cardbanner.mode.ScaleYTransformer;
 import com.xuezj.cardbanner.utils.BannerUtils;
 import com.xuezj.cardbanner.view.CardView;
 
@@ -42,7 +41,7 @@ public class CardBanner extends FrameLayout {
     private PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
     private CardView cardView;
     private List<ImageData> datas;
-    private ItemViewMode itemViewMode;
+    private BaseTransformer baseTransformer;
     private int viewWidth;
 
 
@@ -53,6 +52,9 @@ public class CardBanner extends FrameLayout {
     private BannerAdapter bannerAdapter;
     private boolean isPlay = true;
     private int dataCount = 0;
+
+
+
     private int delayTime = 2000;
     private static final int DEFAULT_SELECTION = Integer.MAX_VALUE >> 2;
     private int currentItem = 0;
@@ -85,7 +87,7 @@ public class CardBanner extends FrameLayout {
         View view = LayoutInflater.from(context).inflate(R.layout.card_banner, this, true);
         viewWidth = context.getResources().getDisplayMetrics().widthPixels;
         cardView = (CardView) view.findViewById(R.id.card_view);
-        itemViewMode = new ScaleXViewMode();
+        baseTransformer = new ScaleYTransformer();
         mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
     }
 
@@ -119,8 +121,8 @@ public class CardBanner extends FrameLayout {
         return this;
     }
 
-    public CardBanner setItemViewMode(ItemViewMode itemViewMode) {
-        this.itemViewMode = itemViewMode;
+    public CardBanner setTransformer(BaseTransformer baseTransformer) {
+        this.baseTransformer = baseTransformer;
         return this;
     }
 
@@ -145,7 +147,7 @@ public class CardBanner extends FrameLayout {
     }
     private void setData() {
         cardView.setLayoutManager(mLayoutManager);
-        cardView.setViewMode(itemViewMode);
+        cardView.setViewMode(baseTransformer);
 //        mCircleRecyclerView.setNeedCenterForce(true);
 //        mCircleRecyclerView.setNeedLoop(!mIsNotLoop);
         Log.d("CardBanner", "getWidth():" + getWidth());
@@ -178,7 +180,9 @@ public class CardBanner extends FrameLayout {
         cardView.setAdapter(cardAdapter);
 
     }
-
+    public void setDelayTime(int delayTime) {
+        this.delayTime = delayTime;
+    }
     private final Runnable task = new Runnable() {
         @Override
         public void run() {

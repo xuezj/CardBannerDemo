@@ -1,19 +1,18 @@
 package com.xuezj.cardbannerdemo;
 
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.xuezj.cardbanner.mode.ItemViewMode;
+import com.xuezj.cardbanner.mode.BaseTransformer;
 
 /**
  * Created by xuezj on 2017/7/29.
  */
 
-public class DemoViewMode implements ItemViewMode {
+public class DemoTransformer implements BaseTransformer {
 
 
-    public DemoViewMode(){}
+    public DemoTransformer(){}
 
 
     @Override
