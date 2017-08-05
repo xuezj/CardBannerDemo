@@ -1,6 +1,6 @@
 # CardBannerDemo
 ## 效果图
-![image](https://github.com/xuezj/DragChooseDemo/blob/master/demo.gif)
+![image](https://github.com/xuezj/CardBannerDemo/blob/master/demo.gif)
 
 ## Attributes属性（布局文件中的自定义属性）
 
