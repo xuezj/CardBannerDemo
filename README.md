@@ -30,6 +30,7 @@ BannerViewHolder.class
 自定义item实现ViewHolder的被继承类
 ## 使用
 ###添加依赖
+
 Gradle
 ```
 dependencies{
@@ -37,6 +38,7 @@ dependencies{
 }
 ```
 ###工程中使用
+
 布局文件中的使用
 ```xml
 <com.xuezj.cardbanner.CardBanner
@@ -52,6 +54,7 @@ dependencies{
  
 ```
 代码中调用
+
 1.原生
 ```Java
         List<ImageData> imageData = new ArrayList<>();
