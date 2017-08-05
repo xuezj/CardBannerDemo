@@ -115,9 +115,7 @@ public class RoundedImageView extends ImageView {
 
 		} else if (type == TYPE_ROUND)
 		{
-			Log.e("TAG",
-					"b'w = " + bmp.getWidth() + " , " + "b'h = "
-							+ bmp.getHeight());
+
 			if (!(bmp.getWidth() == getWidth() && bmp.getHeight() == getHeight()))
 			{
 				// 如果图片的宽或者高与view的宽高不匹配，计算出需要缩放的比例；缩放后的图片的宽高，一定要大于我们view的宽高；所以我们这里取大值；
@@ -165,12 +163,7 @@ public class RoundedImageView extends ImageView {
 			mRoundRect = new RectF(0, 0, w, h);
 	}
 
-	/**
-	 * drawable转bitmap
-	 * 
-	 * @param drawable
-	 * @return
-	 */
+
 	private Bitmap drawableToBitamp(Drawable drawable)
 	{
 		if (drawable instanceof BitmapDrawable)

@@ -33,12 +33,10 @@ public class CardView extends RecyclerView implements View.OnClickListener {
     private boolean mFirstSetAdapter = true;
 
 
-    private int currentItem;
     private int dataCount;
     private Handler mPostHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            currentItem = DEFAULT_SELECTION - DEFAULT_SELECTION % dataCount-1;
             scrollToPosition(DEFAULT_SELECTION - DEFAULT_SELECTION % dataCount);
         }
     };
@@ -47,11 +45,11 @@ public class CardView extends RecyclerView implements View.OnClickListener {
         this(context, null);
     }
 
-    public CardView(Context context, @Nullable AttributeSet attrs) {
+    public CardView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CardView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public CardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setOverScrollMode(OVER_SCROLL_NEVER);
     }
@@ -62,7 +60,6 @@ public class CardView extends RecyclerView implements View.OnClickListener {
         super.onLayout(changed, l, t, r, b);
 
         if (mNeedLoop) {
-//            scrollToPosition Notwork use delay
             if (!mFirstOnLayout) {
                 mFirstOnLayout = true;
                 mPostHandler.sendEmptyMessage(0);
@@ -70,17 +67,7 @@ public class CardView extends RecyclerView implements View.OnClickListener {
             mCurrentCenterChildView = findViewAtCenter();
             smoothScrollToView(mCurrentCenterChildView);
         }
-//        } else if (!mNeedLoop && mNeedCenterForce) {
-//            LinearLayoutManager layoutManager = (LinearLayoutManager) getLayoutManager();
-//            if (layoutManager.canScrollHorizontally())
-//                setPadding(getWidth() / 2, 0, getWidth() / 2, 0);
-//            else if (layoutManager.canScrollVertically())
-//                setPadding(0, getHeight() / 2, 0, getHeight() / 2);
-//            setClipToPadding(false);
-//            setClipChildren(false);
-//            mCurrentCenterChildView = findViewAtCenter();
-//            smoothScrollToView(mCurrentCenterChildView);
-//        }
+
 
         if (mCurrentCenterChildView != null)
             mCurrentCenterChildView.setOnClickListener(this);
@@ -134,19 +121,12 @@ public class CardView extends RecyclerView implements View.OnClickListener {
     @Override
     public void onScrollStateChanged(int state) {
         if (state == SCROLL_STATE_IDLE) {
-//            if (!mIsForceCentering) {
-//                mIsForceCentering = true;
+
             mCurrentCenterChildView = findViewAtCenter();
-
-
-            if (mCurrentCenterChildView != null && mCenterItemClickListener != null){
-                currentItem += 1;
+            if (mCurrentCenterChildView != null && mCenterItemClickListener != null) {
                 mCurrentCenterChildView.setOnClickListener(this);
             }
 
-//                mCenterRunnable.setView(mCurrentCenterChildView);
-//                ViewCompat.postOnAnimation(this, mCenterRunnable);
-//            }
         }
 
         if (mOnScrollListener != null)
@@ -176,7 +156,7 @@ public class CardView extends RecyclerView implements View.OnClickListener {
 
     public int getCurrentItem() {
         mCurrentCenterChildView = findViewAtCenter();
-        return (int)findViewAtCenter().getTag(R.id.key_item);
+        return (int) findViewAtCenter().getTag(R.id.key_item);
     }
 
     public View findViewAtCenter() {
@@ -195,26 +175,11 @@ public class CardView extends RecyclerView implements View.OnClickListener {
     }
 
 
-
-
-    /**
-     * default needLoop is true
-     * if not needLoop && centerForce
-     * will setPadding your layoutManger direction half width or height
-     * and setClipPadding(false), setClipChildren(false)
-     *
-     * @param needLoop
-     *         default true
-     */
     public void setNeedLoop(boolean needLoop) {
         mNeedLoop = needLoop;
     }
 
-    /**
-     * set the center item clickListener
-     *
-     * @param listener
-     */
+
     public void setOnCenterItemClickListener(OnCenterItemClickListener listener) {
         mCenterItemClickListener = listener;
     }

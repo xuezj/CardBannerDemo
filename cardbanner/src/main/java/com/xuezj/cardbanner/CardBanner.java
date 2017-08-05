@@ -2,9 +2,6 @@ package com.xuezj.cardbanner;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.AttrRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.util.AttributeSet;
@@ -59,7 +56,7 @@ public class CardBanner extends FrameLayout {
     private static final int DEFAULT_SELECTION = Integer.MAX_VALUE >> 2;
     private int currentItem = 0;
     private CardAdapter cardAdapter;
-    public CardBanner(@NonNull Context context) {
+    public CardBanner(Context context) {
         this(context, null);
 //        this.context = context;
 //        borderWidth = BannerUtils.dp2px(context, 30);
@@ -68,7 +65,7 @@ public class CardBanner extends FrameLayout {
 //        cardBannerView = (CardBannerView) view.findViewById(R.id.card_view);
     }
 
-    public CardBanner(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public CardBanner( Context context,  AttributeSet attrs) {
 //        super(context, attrs);
 //        this.context = context;
 //        initView(attrs);
@@ -76,7 +73,7 @@ public class CardBanner extends FrameLayout {
     }
 
 
-    public CardBanner(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+    public CardBanner(Context context, AttributeSet attrs,int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
         initView(attrs);

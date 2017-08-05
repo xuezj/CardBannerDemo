@@ -12,7 +12,6 @@ import com.xuezj.cardbanner.BannerData;
 import com.xuezj.cardbanner.ImageData;
 import com.xuezj.cardbanner.R;
 import com.xuezj.cardbanner.utils.BannerUtils;
-import com.xuezj.cardbanner.utils.Config;
 
 import java.util.List;
 
@@ -92,13 +91,7 @@ public class CardAdapter extends RecyclerView.Adapter<BannerViewHolder> {
         }
 
 
-//            holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Toast.makeText(getContext(), "Center Clicked"+i, Toast.LENGTH_SHORT).show();
-//                }
-////            });
-//        Log.d("CardAdapter", ((ImageData) datas.get(position % datas.size())).getImage());
+
 
     }
 
