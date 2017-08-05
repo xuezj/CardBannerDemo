@@ -6,17 +6,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.xuezj.cardbannerdemo.MainActivity">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            android:text="这是一个模仿新版爱奇艺轮播图的控件"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="原生："/>
+        <com.xuezj.cardbanner.CardBanner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:divider_width="10dp"
+            app:main_title_text_color="#fff"
+            app:subtitle_title_text_color="#fff"
+            app:main_title_text_size="15dp"
+            app:subtitle_title_text_size="12dp"
+            app:border_width="30dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自定义item："/>
 
-    <com.xuezj.cardbanner.CardBanner
-        android:id="@+id/banner"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"/>
-    <com.xuezj.cardbanner.CardBanner
-        android:id="@+id/banner2"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_below="@+id/banner"
-        app:divider_width="10dp"/>
+        <com.xuezj.cardbanner.CardBanner
+            android:id="@+id/banner2"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="500dp"/>
+    </LinearLayout>
+
+</ScrollView>
+
 
 
 </RelativeLayout>
