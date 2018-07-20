@@ -2,16 +2,12 @@ package com.xuezj.cardbanner.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.xuezj.cardbanner.BannerData;
 import com.xuezj.cardbanner.ImageData;
 import com.xuezj.cardbanner.R;
-import com.xuezj.cardbanner.utils.BannerUtils;
 
 import java.util.List;
 
@@ -84,8 +80,7 @@ public class CardAdapter extends RecyclerView.Adapter<BannerViewHolder> {
             VH.subtitleTitle.setText(datas.get(position % datas.size()).getSubtitleTitle());
             VH.subtitleTitle.setTextSize((float)subtitleTitleTextSize);
             Glide.with(context)
-                    .load(datas.get(position % datas.size()).getImage()).centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .load(datas.get(position % datas.size()).getImage())
 //                    .bitmapTransform(new CropCircleTransformation(getContext()))
                     .into(VH.roundedImageView);
         }

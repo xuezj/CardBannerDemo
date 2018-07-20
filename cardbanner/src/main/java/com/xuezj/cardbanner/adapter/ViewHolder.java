@@ -1,7 +1,6 @@
 package com.xuezj.cardbanner.adapter;
 
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.xuezj.cardbanner.R;

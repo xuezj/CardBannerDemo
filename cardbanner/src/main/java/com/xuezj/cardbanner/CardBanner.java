@@ -222,4 +222,8 @@ public class CardBanner extends FrameLayout {
     public interface OnItemClickListener {
         void onItem(int position);
     }
+    public void stop(){
+        stopPlay();
+    }
+
 }

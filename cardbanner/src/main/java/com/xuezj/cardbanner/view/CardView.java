@@ -3,7 +3,6 @@ package com.xuezj.cardbanner.view;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -20,7 +19,6 @@ import com.xuezj.cardbanner.mode.BaseTransformer;
 
 public class CardView extends RecyclerView implements View.OnClickListener {
 
-    private static final int DEFAULT_SELECTION = Integer.MAX_VALUE >> 2;
     private int itemCount;
     private boolean mIsForceCentering;
     private BaseTransformer mViewMode;
@@ -37,7 +35,7 @@ public class CardView extends RecyclerView implements View.OnClickListener {
     private Handler mPostHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            scrollToPosition(DEFAULT_SELECTION - DEFAULT_SELECTION % dataCount);
+            scrollToPosition(Integer.MAX_VALUE >> 2 - Integer.MAX_VALUE >> 2 % dataCount);
         }
     };
 
@@ -58,19 +56,21 @@ public class CardView extends RecyclerView implements View.OnClickListener {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-
-        if (mNeedLoop) {
-            if (!mFirstOnLayout) {
-                mFirstOnLayout = true;
-                mPostHandler.sendEmptyMessage(0);
+        if (!mFirstSetAdapter) {
+            if (mNeedLoop) {
+                if (!mFirstOnLayout) {
+                    mFirstOnLayout = true;
+                    mPostHandler.sendEmptyMessage(0);
+                }
+                mCurrentCenterChildView = findViewAtCenter();
+                smoothScrollToView(mCurrentCenterChildView);
             }
-            mCurrentCenterChildView = findViewAtCenter();
-            smoothScrollToView(mCurrentCenterChildView);
+
+
+            if (mCurrentCenterChildView != null)
+                mCurrentCenterChildView.setOnClickListener(this);
         }
 
-
-        if (mCurrentCenterChildView != null)
-            mCurrentCenterChildView.setOnClickListener(this);
     }
 
 
@@ -215,8 +215,8 @@ public class CardView extends RecyclerView implements View.OnClickListener {
         if (mFirstSetAdapter) {
             mFirstSetAdapter = false;
         } else {
-//            if (adapter != null && mNeedCenterForce)
-//                mPostHandler.sendEmptyMessage(0);
+            if (adapter != null)
+                mPostHandler.sendEmptyMessage(0);
         }
     }
 }

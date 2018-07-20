@@ -177,7 +177,7 @@ public class WeakHandler {
             if (mCallback == null) {
                 return;
             }
-            final Handler.Callback callback = mCallback.get();
+            final Callback callback = mCallback.get();
             if (callback == null) { // Already disposed
                 return;
             }
