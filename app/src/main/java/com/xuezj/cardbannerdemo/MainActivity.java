@@ -78,8 +78,7 @@ public class MainActivity extends AppCompatActivity {
             public void onBindViewHolder(BannerViewHolder holder, int position) {
                 ViewHolder VH = (ViewHolder) holder;
                 Glide.with(MainActivity.this)
-                        .load(image.get(position)).centerCrop()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .load(image.get(position))
 //                    .bitmapTransform(new CropCircleTransformation(getContext()))
                         .into(VH.roundedImageView);
             }
