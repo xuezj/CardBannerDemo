@@ -41,7 +41,7 @@ CardImageLoader（V2新增接口）
 Gradle
 ```
 dependencies{
-    compile 'com.xuezj.cardbanner:cardbanner:2.0.0'
+    compile 'com.xuezj.cardbanner:cardbanner:2.0.1'
 }
 ```
 ## 工程中使用
