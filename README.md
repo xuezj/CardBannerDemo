@@ -34,7 +34,7 @@ BannerViewHolder.class
 Gradle
 ```
 dependencies{
-    compile 'com.xuezj.cardbanner:cardbanner:1.0.0'
+    compile 'com.xuezj.cardbanner:cardbanner:1.0.1'
 }
 ```
 ###工程中使用
