@@ -15,12 +15,16 @@
 
 
 ## 方法
-|     方法名    |  说明   |
-| :-------------:| :-----:|
-| setDatas | 使用原生卡片设置数据（必须使用lib中的ImageData新建集合） |
-| setDataCount | （使用自定义item）设置数据集合大小（配合setBannerAdapter使用） |
-| setBannerAdapter | （使用自定义item）  设置自定义item的Adapter（配合setDataCount使用） |
-| setDelayTime | 设置自动轮播时间间隔（单位毫秒，默认为2000） |
+|     方法名    |  说明   |  版本   |
+| :-------------:| :-----:| :-----:|
+| setDatas | 使用原生卡片设置数据（必须使用lib中的ImageData新建集合） | V1&V2 |
+| setDataCount | （使用自定义item）设置数据集合大小（配合setBannerAdapter使用） | V1 (V2 移除) |
+| setBannerAdapter | （使用自定义item）  设置自定义item的Adapter（配合setDataCount使用） | V1&V2 |
+| setDelayTime | 设置自动轮播时间间隔（单位毫秒，默认为2000） | V1&V2 |
+| setPlay | 是否自动轮播 | V1&V2 |
+| setTransformer | 设置自定义动画样式 | V1&V2 |
+| startAutoPlay | 开启自动轮播 | V2 |
+| stopAutoPlay | 关闭自动轮播 | V2 |
 
 ## 类
 ImageData.class
@@ -28,16 +32,19 @@ ImageData.class
 
 BannerViewHolder.class
 自定义item实现ViewHolder的被继承类
+
+CardImageLoader（V2新增接口）
+用于图片加载（具体可参照示例）
 ## 使用
 ###添加依赖
 
 Gradle
 ```
 dependencies{
-    compile 'com.xuezj.cardbanner:cardbanner:1.0.1'
+    compile 'com.xuezj.cardbanner:cardbanner:2.0.0'
 }
 ```
-###工程中使用
+## 工程中使用
 
 布局文件中的使用
 ```xml
@@ -56,6 +63,7 @@ dependencies{
 代码中调用
 
 1.原生
+###### V1
 ```Java
         List<ImageData> imageData = new ArrayList<>();
         ImageData b1 = new ImageData();
@@ -80,7 +88,14 @@ dependencies{
             }
         });
 ```
+###### V2
+```Java
+...
+cardBanner.setDatas(imageData).setCardImageLoader(new MyImageLoader()).setPlay(true).start();
+...
+```
 2.自定义item
+###### V1
 ```Java
         final List<String> image=new ArrayList<>();
         image.add("http://ww1.sinaimg.cn/large/610dc034ly1fhyeyv5qwkj20u00u0q56.jpg");
@@ -114,4 +129,29 @@ dependencies{
             }
         });
 
+```
+###### V2
+```Java
+ cardBanner2.setBannerAdapter(new BannerAdapter() {
+            @Override
+            public int getCount() {
+                return image.size();
+            }
+
+            @Override
+            public BannerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                ViewHolder h = new ViewHolder(LayoutInflater.from(MainActivity.this)
+                        .inflate(R.layout.banner_item_demo, parent, false));
+                return h;
+            }
+
+            @Override
+            public void onBindViewHolder(BannerViewHolder holder, int position) {
+                ViewHolder VH = (ViewHolder) holder;
+                Glide.with(MainActivity.this)
+                        .load(image.get(position))
+//                    .bitmapTransform(new CropCircleTransformation(getContext()))
+                        .into(VH.roundedImageView);
+            }
+        });
 ```

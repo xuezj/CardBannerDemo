@@ -199,14 +199,14 @@ public class CardBanner extends FrameLayout {
         }
     };
 
-    public void autoPlay() {
+    private void autoPlay() {
         if (isPlay) {
             handler.removeCallbacks(task);
             handler.postDelayed(task, delayTime);
         }
     }
 
-    public void stopPlay() {
+    private void stopPlay() {
         if (isPlay) {
             handler.removeCallbacks(task);
         }
@@ -230,8 +230,12 @@ public class CardBanner extends FrameLayout {
     public interface OnItemClickListener {
         void onItem(int position);
     }
-    public void stop(){
-        stopPlay();
+    public void startAutoPlay(){
+        handler.removeCallbacks(task);
+        handler.postDelayed(task, delayTime);
+    }
+    public void stopAutoPlay() {
+        handler.removeCallbacks(task);
     }
 
 }

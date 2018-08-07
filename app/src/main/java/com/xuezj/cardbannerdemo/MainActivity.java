@@ -100,6 +100,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 可以使用startAutoPlay和stopAutoPlay来控制自动轮播
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        cardBanner.startAutoPlay();
+        cardBanner2.startAutoPlay();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        cardBanner.stopAutoPlay();
+        cardBanner2.stopAutoPlay();
+    }
+
     class ViewHolder extends BannerViewHolder {
         public RoundedImageView roundedImageView;
 
