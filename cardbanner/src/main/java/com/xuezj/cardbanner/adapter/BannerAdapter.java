@@ -7,6 +7,7 @@ import android.view.ViewGroup;
  */
 
 public interface BannerAdapter {
+    int getCount();
     BannerViewHolder onCreateViewHolder(ViewGroup parent, int viewType);
     void onBindViewHolder(BannerViewHolder holder, int position);
 }

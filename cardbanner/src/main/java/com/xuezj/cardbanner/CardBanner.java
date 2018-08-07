@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 
 import com.xuezj.cardbanner.adapter.BannerAdapter;
 import com.xuezj.cardbanner.adapter.CardAdapter;
+import com.xuezj.cardbanner.imageloader.CardImageLoader;
 import com.xuezj.cardbanner.mode.BaseTransformer;
 import com.xuezj.cardbanner.mode.ScaleYTransformer;
 import com.xuezj.cardbanner.utils.BannerUtils;
@@ -38,6 +39,9 @@ public class CardBanner extends FrameLayout {
     private PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
     private CardView cardView;
     private List<ImageData> datas;
+
+
+    private CardImageLoader cardImageLoader;
     private BaseTransformer baseTransformer;
     private int viewWidth;
 
@@ -107,14 +111,11 @@ public class CardBanner extends FrameLayout {
     public CardBanner setDatas(List<ImageData> datas) {
         this.datas = datas;
         this.dataCount = datas.size();
-
-
         return this;
     }
 
-    public CardBanner setDataCount(int dataCount) {
-        this.datas = null;
-        this.dataCount = dataCount;
+    public CardBanner setCardImageLoader(CardImageLoader cardImageloader) {
+        this.cardImageLoader = cardImageloader;
         return this;
     }
 
@@ -139,15 +140,14 @@ public class CardBanner extends FrameLayout {
         return this;
     }
     public CardBanner setBannerAdapter(BannerAdapter bannerAdapter) {
+        this.datas = null;
+        dataCount=bannerAdapter.getCount();
         this.bannerAdapter = bannerAdapter;
         return this;
     }
     private void setData() {
         cardView.setLayoutManager(mLayoutManager);
         cardView.setViewMode(baseTransformer);
-//        mCircleRecyclerView.setNeedCenterForce(true);
-//        mCircleRecyclerView.setNeedLoop(!mIsNotLoop);
-        Log.d("CardBanner", "getWidth():" + getWidth());
         pagerSnapHelper.attachToRecyclerView(cardView);
         cardView.setOnCenterItemClickListener(new CardView.OnCenterItemClickListener() {
             @Override
@@ -156,19 +156,26 @@ public class CardBanner extends FrameLayout {
                 onItemClickListener.onItem((int)v.getTag(R.id.key_position));
             }
         });
+
         cardAdapter= new CardAdapter(context, viewWidth, borderWidth, dividerWidth);
         if(datas!=null){
-            cardView.setDataCount(datas.size());
-            cardAdapter.setDatas(datas);
-        }else if(dataCount!=0){
-            cardView.setDataCount(dataCount);
-            cardAdapter.setDataCount(dataCount);
-            if (bannerAdapter!=null)
-                cardAdapter.setBannerAdapter(bannerAdapter);
-            else
-                throw new RuntimeException("[CardBanner] --> please set BannerAdapter");
+            if (cardImageLoader !=null){
+                cardAdapter.setCardImageloader(cardImageLoader);
+                cardView.setDataCount(datas.size());
+                cardAdapter.setDatas(datas);
+            }else{
+                throw new RuntimeException("[CardBanner] --> please set CardImageLoader");
+            }
+
         }else{
-            throw new RuntimeException("[CardBanner] --> please set Data or DataCount,but the DataCount More than 0");
+
+            if (bannerAdapter!=null) {
+
+                cardView.setDataCount(dataCount);
+                cardAdapter.setDataCount(dataCount);
+                cardAdapter.setBannerAdapter(bannerAdapter);
+            }else
+                throw new RuntimeException("[CardBanner] --> please set BannerAdapter");
         }
 
 
@@ -177,8 +184,9 @@ public class CardBanner extends FrameLayout {
         cardView.setAdapter(cardAdapter);
 
     }
-    public void setDelayTime(int delayTime) {
+    public CardBanner setDelayTime(int delayTime) {
         this.delayTime = delayTime;
+        return this;
     }
     private final Runnable task = new Runnable() {
         @Override

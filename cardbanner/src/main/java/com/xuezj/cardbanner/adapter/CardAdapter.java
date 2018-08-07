@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.xuezj.cardbanner.ImageData;
 import com.xuezj.cardbanner.R;
+import com.xuezj.cardbanner.imageloader.CardImageLoader;
 
 import java.util.List;
 
@@ -29,6 +29,7 @@ public class CardAdapter extends RecyclerView.Adapter<BannerViewHolder> {
     private int dividerWidth;
     private int mainTitleTextSize;
     private int subtitleTitleTextSize;
+    private CardImageLoader cardImageloader;
 
     public CardAdapter(Context context, int width, int borderWidth, int dividerWidth) {
         this.context = context;
@@ -43,6 +44,9 @@ public class CardAdapter extends RecyclerView.Adapter<BannerViewHolder> {
 
     public void setBannerAdapter(BannerAdapter bannerAdapter) {
         this.bannerAdapter = bannerAdapter;
+    }
+    public void setCardImageloader(CardImageLoader cardImageloader) {
+        this.cardImageloader = cardImageloader;
     }
     public void setTextSize(int mainTitleTextSize,int subtitleTitleTextSize) {
         this.mainTitleTextSize = mainTitleTextSize;
@@ -78,11 +82,13 @@ public class CardAdapter extends RecyclerView.Adapter<BannerViewHolder> {
             VH.mainTitle.setText(datas.get(position % datas.size()).getMainTitle());
             VH.mainTitle.setTextSize((float)mainTitleTextSize);
             VH.subtitleTitle.setText(datas.get(position % datas.size()).getSubtitleTitle());
-            VH.subtitleTitle.setTextSize((float)subtitleTitleTextSize);
-            Glide.with(context)
-                    .load(datas.get(position % datas.size()).getImage())
-//                    .bitmapTransform(new CropCircleTransformation(getContext()))
-                    .into(VH.roundedImageView);
+            VH.subtitleTitle.setTextSize((float)subtitleTitleTextSize);if (cardImageloader!=null){
+                cardImageloader.load(context,VH.roundedImageView,datas.get(position % datas.size()).getImage());
+            }
+//            Glide.with(context)
+//                    .load(datas.get(position % datas.size()).getImage())
+////                    .bitmapTransform(new CropCircleTransformation(getContext()))
+//                    .into(VH.roundedImageView);
         }
 
 

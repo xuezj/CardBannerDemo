@@ -63,7 +63,8 @@ public class CardView extends RecyclerView implements View.OnClickListener {
                     mPostHandler.sendEmptyMessage(0);
                 }
                 mCurrentCenterChildView = findViewAtCenter();
-                smoothScrollToView(mCurrentCenterChildView);
+                if (mCurrentCenterChildView != null)
+                    smoothScrollToView(mCurrentCenterChildView);
             }
 
 

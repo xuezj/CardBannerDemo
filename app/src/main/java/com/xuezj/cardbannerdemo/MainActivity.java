@@ -1,14 +1,13 @@
 package com.xuezj.cardbannerdemo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.xuezj.cardbanner.CardBanner;
 import com.xuezj.cardbanner.ImageData;
 import com.xuezj.cardbanner.adapter.BannerAdapter;
@@ -21,6 +20,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     CardBanner cardBanner, cardBanner2;
     List<ImageData> imageData;
+    private ArrayList<String> image;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         imageData.add(b3);
         //2.然后调用setDatas方法填充数据，再start()就可以了，
         // 是否自动轮播setPlay可以不设置，默认为自动轮播即为ture
-        cardBanner.setDatas(imageData).setPlay(true).start();
+        cardBanner.setDatas(imageData).setCardImageLoader(new MyImageLoader()).setPlay(true).start();
         //卡片的点击事件
         cardBanner.setOnItemClickListener(new CardBanner.OnItemClickListener() {
             @Override
@@ -62,11 +63,16 @@ public class MainActivity extends AppCompatActivity {
          * setBannerAdapter方法，setDataCount告知Library数据集合的大小，setBannerAdapter是设置xml
          * 及数据的加载，这里和RecyclerView一样，需要继承BannerViewHolder实现一个ViewHolder，具体可参考实例
          */
-        final List<String> image=new ArrayList<>();
+       image=new ArrayList<>();
         image.add("http://ww1.sinaimg.cn/large/610dc034ly1fhyeyv5qwkj20u00u0q56.jpg");
         image.add("https://ws1.sinaimg.cn/large/610dc034gy1fhvf13o2eoj20u011hjx6.jpg");
         image.add("http://ww1.sinaimg.cn/large/610dc034ly1fhxe0hfzr0j20u011in1q.jpg");
-        cardBanner2.setDataCount(imageData.size()).setBannerAdapter(new BannerAdapter() {
+        cardBanner2.setBannerAdapter(new BannerAdapter() {
+            @Override
+            public int getCount() {
+                return image.size();
+            }
+
             @Override
             public BannerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 ViewHolder h = new ViewHolder(LayoutInflater.from(MainActivity.this)
